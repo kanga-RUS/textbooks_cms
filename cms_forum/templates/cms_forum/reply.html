@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+<ul class="nav nav-sidebar">
+    <li class=""><a href="{% url 'forum:forum-index' %}"> <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+        Форум</a></li>
+        <ul>
+            <li class="my-list"><a href="{% url 'forum:forum-detail' forumid %}"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                Назад к списку топиков</a> </li>
+            {% for forum in forums %}
+                <li class=""><a href="{% url 'forum:forum-detail' forum.pk %}">{{ forum.title }}</a></li>
+            {% endfor %}
+        </ul>
+</ul>
+{% endblock sidebar %}
+
+{% block content_title %}Добавить новый пост{% endblock content_title %}
+
+{% block content %}
+<form action="{% url 'forum:reply' topic.id %}" method="POST">
+    {% csrf_token %} 
+    {{ form.as_p }}
+    <input type="submit" value="Опубликовать" class="btn btn-primary"/>
+</form>
+{% endblock content %}

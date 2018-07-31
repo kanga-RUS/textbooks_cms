@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content_title %}Добавить новый топик{% endblock content_title %}
+
+{% block content %}
+<form action="{% url 'forum:new-topic' forum.id %}" method="POST">
+    {% csrf_token %} 
+    {{ form.as_p }}
+    <input type="submit" value="Создать" class="btn btn-primary"/>
+</form>
+{% endblock content %}

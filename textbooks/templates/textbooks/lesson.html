@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block button %}
+        <li class="">
+          <a href="{% url 'textbooks:add_lesson' textbook.id %}">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Добавить урок
+          </a>
+        </li>
+{% endblock button %}
+
+{% block book_sidebar %}
+    <ul class="nav nav-sidebar">
+        <li class="">
+            <li class=""><a href="{% url 'textbooks:textbook_detail' textbook.id %}">
+            <span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp; {{ textbook.title }}
+            </a>
+                <ul>
+                    {% for lesson in textbook.lesson_set.all %}
+                        <li><a href="{% url 'textbooks:lesson' textbook.id lesson.id %}"> {{ lesson.title }} </a> </li>
+                    {% endfor %}
+                </ul>
+        </li>
+    </ul>
+{% endblock book_sidebar %}
+
+
+    {% block content_title %}
+<div class="row">
+        <div class="col-sm-9"> {{ lesson.title }} </div>
+        {% if user.is_staff or user.is_superuser %}
+            <div class="col-sm-3">
+                <a href="{% url 'textbooks:lesson_update' textbook.id lesson.id %}"><button type="submit" class="btn btn-warning">Изменить урок</button></a>
+
+                <a href="{% url 'textbooks:lesson_delete' textbook.id lesson.id %}"><button type="submit" class="btn btn-danger">Удалить урок</button></a>
+
+            </div>
+        {% endif %}
+</div>
+    {% endblock content_title %}
+
+    {% block  content %}
+        {% autoescape off %} {{ lesson.text }} {% endautoescape %}
+    {% endblock content %}

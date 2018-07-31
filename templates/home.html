@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content_title %}Добро пожаловать!{% endblock %}
+
+    {% block content %}
+    <p>
+        На нашем сайте вы можете ознакомиться с  {{ count }} учебниками по информационным технологиям.
+        {% if request.user.is_staff or request.user.is_superuser %}
+        Вы также можете <a href="{% url 'textbooks:add_textbook' %}">создать свой учебник</a>.
+        {% endif %}
+    </p>
+    {% endblock %}
+

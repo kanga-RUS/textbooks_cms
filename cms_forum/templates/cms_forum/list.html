@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content_title %}Форумы{% endblock content_title %}
+
+{% block content %}
+<!-- Forums  -->
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th>Форум</th>
+                  <th>Количество постов</th>
+                  <th>Последний пост</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for forum in forums %}
+                <tr>
+                  <td {% if forloop.last %}class="last"{% endif %}>
+                    <div class="title"> <a href="{% url 'forum:forum-detail' forum.pk %}">{{ forum.title }}</a></div></td>
+                  <td {% if forloop.last %}class="last"{% endif %}>{{ forum.num_posts }} </td>
+                  <td {% if forloop.last %}class="last"{% endif %}>
+                    {{ forum.last_post.short|linebreaksbr }}</td>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}

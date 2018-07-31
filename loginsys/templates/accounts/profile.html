@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Профиль {% endblock title %}
+
+{% block content_title %}Профиль{% endblock content_title %}
+
+{% block profile_sidebar %}
+     <ul>
+         <li><a href="{% url 'loginsys:change_password' %}"> Изменить пароль </a> </li>
+         <li><a href="{% url 'loginsys:logout' %}"> Выход</a></li>
+     </ul>
+{% endblock profile_sidebar %}
+
+{% block content %}
+
+    {% if userprofile.image %}
+    <img src="{{ userprofile.image.url }}" width="140" class="img-responsive">
+    {% endif %}
+    <p>Имя пользователя: {{ user }}</p>
+    <p>Имя: {{ user.first_name }}</p>
+    <p>Фамилия: {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Количество опубликованных учебников: {{ count }}</p>
+
+{% endblock %}

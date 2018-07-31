@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block forum_sidebar %}
+<ul class="nav nav-sidebar">
+    <li class=""><a href="{% url 'forum:forum-index' %}"> <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+        Форум</a></li>
+        <ul>
+            <li class="my-list"><a href="{% url 'forum:forum-detail' forumid %}"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                Назад к списку топиков</a> </li>
+            {% for forum in forums %}
+                <li class=""><a href="{% url 'forum:forum-detail' forum.pk %}">{{ forum.title }}</a></li>
+            {% endfor %}
+        </ul>
+</ul>
+{% endblock forum_sidebar %}
+
+
+{% block content_title %}{{ topic.title }}{% endblock %}
+
+{% block content %}
+<!-- Posts  -->
+
+<div id="list">
+
+    {% for post in posts.object_list %}
+        <div class="post">
+            <h4><span class="title">{{ post.title }}</span><br /></h4>
+            by {{ post.creator }} | <span class="date">{{ post.created }}</span> <br />
+            <p>{{ post.body }}</p>
+        </div>
+     <br />
+    {% endfor %}
+    <br />
+</div>
+
+
+<!-- Next/Prev page links  -->
+{% if posts.object_list and posts.paginator.num_pages > 1 %}
+<div class="pagination">
+    <span class="step-links">
+        {% if posts.has_previous %}
+            <a href= "?page={{ posts.previous_page_number }}">previous &lt;&lt; </a>
+        {% endif %}
+
+        <span class="current">
+            &nbsp;Page {{ posts.number }} of {{ topics.paginator.num_pages }}
+        </span>
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}"> &gt;&gt; next</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}
+<a class="btn btn-primary" href="{% url 'forum:reply' pk %}">Создать пост</a>
+{% endblock content %}
+
+

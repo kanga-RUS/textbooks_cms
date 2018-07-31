@@ -1,0 +1,22 @@
+.navbar {
+    border-radius: 0;
+}
+
+.navbar-brand {
+    font-family: 'Lobster', cursive;
+}
+
+.my-sidebar {
+    background-color: #E7E4E4;
+}
+
+.forum {
+    text-align: center;
+}
+
+.my-list {
+    list-style: none;
+    padding: 0;
+    marging: 0;
+}
+

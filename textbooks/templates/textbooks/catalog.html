@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content_title %}Каталог электронных учебников{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row placeholders">
+    {% for textbook in textbooks_list %}
+        <a href="{% url 'textbooks:textbook_detail' textbook.id %}">
+            <div class="col-xs-6 col-sm-3 placeholder">
+                {% if textbook.image %}
+                    <img src="{{ textbook.image.url }}"  width="100" height="50" class="img-responsive"/>
+                {% endif %}
+                <br>
+                <h4>{{ textbook.title }}</h4>
+            </div>
+        </a>
+
+    {% endfor %}
+            </div>
+</div>
+{% endblock %}
+
