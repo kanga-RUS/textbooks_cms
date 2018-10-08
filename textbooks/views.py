@@ -19,7 +19,7 @@ def textbook_detail(request, textbook_id):
 def lesson(request, textbook_id, lesson_id):
     textbook = get_object_or_404(Textbook, id=textbook_id)
     lesson = Lesson.objects.get(id=lesson_id)
-    lessons = Lesson.objects.all().filter(textbook_id=textbook_id, id=lesson_id)
+    lessons = Lesson.objects.filter(textbook_id=textbook_id, id=lesson_id)
     return render(request, 'textbooks/lesson.html', {'textbook': textbook, 'lesson': lesson, 'lessons': lessons})
 
 @login_required
